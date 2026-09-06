@@ -1,0 +1,22 @@
+[Unit]
+Description=Windows 11 ARM VM autostart (KVM)
+# 等待 Wayland 合成器与本地文件系统就绪后启动
+After=weston.service local-fs.target
+Wants=weston.service
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Environment=WAYLAND_DISPLAY=wayland-0
+Environment=XDG_SESSION_TYPE=wayland
+Environment=XDG_RUNTIME_DIR=/run/user/0
+Environment=VHD_DIR=/srv/idv/vhd
+# VMID=win11-local  PERSISTENT=1 持久  BOOT_INDEX=1  RESCUE_MODE=0
+# 如需首次开机自动导入模板，把 ExecStart 换成一个
+# "先调 import-template.sh（无盘时）再调 qemu-windows.sh" 的包装脚本
+ExecStart=/opt/win-vm/qemu-windows.sh win11-local 1 1 0
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
