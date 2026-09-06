@@ -44,12 +44,18 @@ docs/
   03-虚拟设备与性能.md     virtio 设备、两层设备模型、性能优化与 GPU 现状
   04-镜像与模板管理.md     Windows 模板导入、持久/非持久快照、数据盘
 scripts/
-  import-template.sh      Windows 模板（tar.gz）→ qcow2 虚拟盘
-  qemu-windows.sh         QEMU 启动参考实现（标准设备）
-  attach-usb.py           运行中的虚机热插拔 USB 设备（QMP）
+  import-template.sh          Windows 模板（tar.gz）→ qcow2 虚拟盘
+  qemu-windows.sh             QEMU 启动参考实现（标准设备）
+  attach-usb.py               运行中的虚机热插拔 USB 设备（QMP）
+  vm-autostart.sh             宿主镜像内的开机自启动包装（首次自动导入模板）
+  repatch-official.sh         官方新版镜像 → 定制版镜像 的一键流水线
+  privacy-hardening.sh        宿主镜像隐私加固（域名阻断/配置失效化/日志清理）
+  generic-patch-qemu.py       QEMU 单指令定制补丁器（跨版本通用定位）
+  installer-telemetry-patch.py 安装器 deb 遥测移除补丁
+  final-verify.sh             定制版镜像出厂终检（30 项对照清单）
 examples/
-  windows-vm.service      开机自动进 Windows 的 systemd 单元
-  grub-file-image.conf    "文件镜像引导" GRUB 菜单项示例
+  windows-vm.service          开机自动进 Windows 的 systemd 单元
+  grub-file-image.conf        "文件镜像引导" GRUB 菜单项示例
 ```
 
 ## 核心技术点
@@ -67,6 +73,11 @@ examples/
 ## 快速开始
 
 见 [docs/02-部署教程.md](docs/02-部署教程.md)。
+
+## 开发与接手
+
+官方出新版镜像后的重打流水线、定制补丁原理、验证方法论、交付物清单：
+见 [docs/05-开发与接手指南.md](docs/05-开发与接手指南.md)。
 
 ## 声明
 
